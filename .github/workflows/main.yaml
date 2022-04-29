@@ -34,6 +34,10 @@ jobs:
         # Note: tags has to be all lower-case
         tags: |
           somik123/randimg:1.0.2
+        push: ${{ github.ref == 'release' }}
+    
+    - name: Image digest
+      run: echo ${{ steps.docker_build.outputs.digest }}
     
   #  - name: Post message on slack
   #    uses: bluenovaio/action-slack@main 
