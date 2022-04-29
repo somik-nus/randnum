@@ -3,6 +3,8 @@ on:
   push:
     branches:
     - "release"
+    tag:
+    - v1.*
 
 jobs:
   build_and_upload:
@@ -33,7 +35,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/randimg:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/randimg:${{github.ref}}
 
       # https://github.com/marketplace/actions/slack-webhook
       - name: Post message on slack
@@ -41,5 +43,5 @@ jobs:
         with:
           username: "Somik"
           icon_emoji: ":robot_face:"
-          text: ${{secrets.SLACK_MSG}}
+          text:  "${{secrets.SLACK_MSG}} \nRepo: ${{ github.repositoryUrl }}\nImage name: ${{ secrets.DOCKERHUB_USERNAME }}/randimg:${{github.ref}}\nImage url: https://hub.docker.com/repository/docker/somik123/randimg"
           webhook_url: ${{ secrets.SLACK_WEBHOOK }}
