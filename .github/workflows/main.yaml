@@ -1,4 +1,4 @@
-name: My First Workflow
+name: Github 2 Dockerhub 2 Slack
 on:
   push:
     branches:
@@ -20,9 +20,6 @@ jobs:
       with:
         install: true
     
-    - name: Build docker image
-      run: docker build -t somik123/myfirstimg:1.0.1 .
-    
     - name: Login to hub.docker.io
       run: docker login ${{ secrets.DOCKER_AUTH }}
 
@@ -33,12 +30,12 @@ jobs:
         context: .
         # Note: tags has to be all lower-case
         tags: |
-          somik123/myfirstimg:1.0.1
+          somik123/randimg:1.0.1
     
-    - name: Post message on slack
-      uses: bluenovaio/action-slack@main 
-      with:
-        username: "ExampleBot"
-        icon_emoji: ":robot_face:"
-        text: "This is a test message"
-        webhook_url: ${{ secrets.SLACK_WEBHOOK }} 
+  #  - name: Post message on slack
+  #    uses: bluenovaio/action-slack@main 
+  #    with:
+  #      username: "ExampleBot"
+  #      icon_emoji: ":robot_face:"
+  #      text: "This is a test message"
+  #      webhook_url: ${{ secrets.SLACK_WEBHOOK }} 
