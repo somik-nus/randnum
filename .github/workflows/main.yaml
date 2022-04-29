@@ -1,4 +1,4 @@
-name: Github 2 Dockerhub 2 Slack
+name: Github to Dockerhub and Slack
 on:
   release:
     types: [published]
