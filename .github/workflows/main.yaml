@@ -25,9 +25,6 @@ jobs:
     
     - name: Login to hub.docker.io
       run: docker login ${{ secrets.DOCKER_AUTH }}
-    
-    - name: Upload image to docker
-      run: docker push somik123/myfirstimg:1.0.1
 
     - name: Build image and push to hub.docker.io
       uses: docker/build-push-action@v2
