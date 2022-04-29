@@ -1,0 +1,38 @@
+name: My First Workflow
+on:
+  push:
+    branches:
+    - "release"
+
+jobs:
+  build_and_upload:
+    runs-on: ubuntu-latest
+    
+    steps:
+
+    # https://github.com/marketplace/actions/checkout
+    - name: Checkout the source
+      uses: actions/checkout@v3
+    
+    - name: Get docker build
+      uses: docker/setup-buildx-action@v1
+      id: buildx
+      with:
+        install: true
+    
+    - name: Build docker image
+      run: docker build -t somik123/myfirstimg:1.0.1 .
+    
+    - name: Login to hub.docker.io
+      run: docker login ${{ secrets.DOCKER_AUTH }}
+    
+    - name: Upload image to docker
+      run: docker push somik123/myfirstimg:1.0.1
+    
+    - name: Post message on slack
+      uses: bluenovaio/action-slack@main 
+      with:
+        username: "ExampleBot"
+        icon_emoji: ":robot_face:"
+        text: "This is a test message"
+        webhook_url: ${{ secrets.SLACK_WEBHOOK }} 
