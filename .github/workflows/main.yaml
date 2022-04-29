@@ -21,7 +21,10 @@ jobs:
         install: true
     
     - name: Login to hub.docker.io
-      run: docker login ${{ secrets.DOCKER_AUTH }}
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Build image and push to hub.docker.io
       uses: docker/build-push-action@v2
@@ -30,7 +33,7 @@ jobs:
         context: .
         # Note: tags has to be all lower-case
         tags: |
-          somik123/randimg:1.0.1
+          somik123/randimg:1.0.2
     
   #  - name: Post message on slack
   #    uses: bluenovaio/action-slack@main 
