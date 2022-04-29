@@ -1,8 +1,6 @@
 name: Github 2 Dockerhub 2 Slack
 on:
   push:
-    branches:
-    - "release"
     tag:
     - v1.*
 
@@ -35,7 +33,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/randimg:${{github.ref}}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/randimg:${{ github.ref }}
 
       # https://github.com/marketplace/actions/slack-webhook
       - name: Post message on slack
