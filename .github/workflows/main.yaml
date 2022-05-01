@@ -1,4 +1,4 @@
-name: Github to Dockerhub and Slack
+name: Final submission
 on:
   release:
     types: [published]
